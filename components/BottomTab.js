@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {HeaderBackButton} from '@react-navigation/elements';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
