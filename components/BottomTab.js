@@ -1,5 +1,7 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {Button, StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {HeaderBackButton} from '@react-navigation/elements';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import MainPage from '../page/MainPage';
@@ -7,9 +9,12 @@ import MyPage from '../page/MyPage';
 
 import ShoppingIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import UserIcon from 'react-native-vector-icons/FontAwesome';
+import ShoppingDetail from '../page/ShoppingDetail';
 
 const BottomTab = () => {
   const Tab = createBottomTabNavigator();
+  const navigation = useNavigation();
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -60,6 +65,27 @@ const BottomTab = () => {
           ),
         }}
       />
+      <Tab.Screen
+        name="상품 상세보기"
+        component={ShoppingDetail}
+        options={{
+          tabBarButton: () => null,
+          tabBarStyle: {display: 'none'},
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => navigation.navigate('쇼핑몰')}
+              style={styles.backBtn}
+              tintColor={'black'}
+            />
+          ),
+          headerTitleAlign: 'left',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 20,
+          },
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -67,6 +93,10 @@ const BottomTab = () => {
 const styles = StyleSheet.create({
   iconStyle: {
     marginTop: 10,
+  },
+  backBtn: {
+    color: 'black',
+    marginLeft: 15,
   },
 });
 

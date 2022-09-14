@@ -10,9 +10,8 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import API_KEY from '../config/Key';
 
-const MainPage = () => {
+const MainPage = ({navigation}) => {
   const [shoppingData, setShoppingData] = useState('');
-
   const fetchData = async () => {
     axios
       .get(
@@ -42,18 +41,23 @@ const MainPage = () => {
 
     return (
       <View style={styles.container} key={index}>
-        <Image source={{uri: imageUrl}} style={styles.imgBox} />
-        <View style={styles.secondContainer}>
-          <Text style={styles.brandName}>{`[${brandName}]`}</Text>
-          <Text numberOfLines={2}>{item.name}</Text>
-          <View style={styles.pricingContainer}>
-            <Text style={styles.discountText}>{`${item.discountRate}%`}</Text>
-            <Text style={styles.priceText}>{sellPrice}</Text>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('상품 상세보기', {paramKey: item})
+          }>
+          <Image source={{uri: imageUrl}} style={styles.imgBox} />
+          <View style={styles.secondContainer}>
+            <Text style={styles.brandName}>{`[${brandName}]`}</Text>
+            <Text numberOfLines={2}>{item.name}</Text>
+            <View style={styles.pricingContainer}>
+              <Text style={styles.discountText}>{`${item.discountRate}%`}</Text>
+              <Text style={styles.priceText}>{sellPrice}</Text>
+            </View>
           </View>
-        </View>
-        <View style={styles.thirdContainer}>
-          <Text style={styles.deliverText}>무료배송</Text>
-        </View>
+          <View style={styles.thirdContainer}>
+            <Text style={styles.deliverText}>무료배송</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   };
